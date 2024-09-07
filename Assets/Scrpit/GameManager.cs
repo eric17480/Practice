@@ -4,25 +4,47 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText;
+    /// <summary>成績文字</summary>
+    [Header("成績顯示")]
+    public TMP_Text scoreText;
     public GameObject nextLevelUI;
-    private int score = 0;
+
+    #region 分數
+    /// <summary>
+    /// 成績計數
+    /// </summary>
+    [SerializeField]
+    private int scoreCount = 0;
+    /// <summary>
+    /// 每次得分獲得的分數
+    /// </summary>
+    private const int ADD_SCORE = 1;
+    /// <summary>
+    /// 通關所需分數
+    /// </summary>
+    private const int PASS_SCORE = 5;
+    #endregion
 
     void Start()
     {
+        Init();
         UpdateScoreUI();
-        nextLevelUI.SetActive(false); // 初始隱藏下一關的UI
     }
 
-    public void AddScore(int value)
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    void Init()
     {
-        score += value;
+        scoreCount = 0;
+        SetSceneUI(false);
+    }
+
+    public void AddScore()
+    {
+        scoreCount += ADD_SCORE;
         UpdateScoreUI();
-        
-        if (score >= 5)
-        {
-            ShowNextLevelUI();
-        }
+        SetSceneUI(scoreCount >= PASS_SCORE);
     }
 
     void UpdateScoreUI()
@@ -30,15 +52,21 @@ public class GameManager : MonoBehaviour
         //if (scoreText != null) 
         //    scoreText.text = "Score: " + score.ToString();   
         if (scoreText == null)
-            Debug.Log("scoreText不見"+scoreText);
+            Debug.Log(scoreText + " 不見了");
         else
-            scoreText.text= "Score: " + score.ToString();
-
+        {
+            scoreText.text = scoreCount.ToString();
+            Debug.Log("分數增加,當前分數= " + scoreCount);
+        }
     }
 
-    void ShowNextLevelUI()
+    /// <summary>
+    /// 設定場景UI是否顯示
+    /// </summary>
+    /// <param name="isShow"></param>
+    void SetSceneUI(bool isShow)
     {
-        nextLevelUI.SetActive(true); // 顯示下一關的UI
+        nextLevelUI.SetActive(isShow);
     }
 
     public void LoadNextLevel()
