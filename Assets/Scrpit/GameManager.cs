@@ -1,10 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public Text scoreText;
+    public TextMeshProUGUI scoreText;
     public GameObject nextLevelUI;
     private int score = 0;
 
@@ -27,7 +27,13 @@ public class GameManager : MonoBehaviour
 
     void UpdateScoreUI()
     {
-        scoreText.text = "Score: " + score.ToString();
+        //if (scoreText != null) 
+        //    scoreText.text = "Score: " + score.ToString();   
+        if (scoreText == null)
+            Debug.Log("scoreText不見"+scoreText);
+        else
+            scoreText.text= "Score: " + score.ToString();
+
     }
 
     void ShowNextLevelUI()
