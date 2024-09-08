@@ -18,11 +18,11 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 每次得分獲得的分數
     /// </summary>
-    private const int ADD_SCORE = 1;
+    private const int ADD_SCORE = 5;
     /// <summary>
     /// 通關所需分數
     /// </summary>
-    private const int PASS_SCORE = 5;
+    private const int PASS_SCORE = 30;
     #endregion
 
     void Start()
